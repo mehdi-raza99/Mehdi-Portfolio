@@ -1,11 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Menu, X, Sun, Moon, Download } from "lucide-react"
+import { Menu, X, Sun, Moon, Download, ExternalLink } from "lucide-react"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(false)
+  const [activeSection, setActiveSection] = useState("")
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme")
@@ -15,6 +16,23 @@ export default function Header() {
       setIsDarkMode(true)
       document.documentElement.classList.add("dark")
     }
+  }, [])
+
+  useEffect(() => {
+    const sectionIds = ["about", "skills", "projects", "achievements", "contact"]
+    const sections = sectionIds.map(id => document.getElementById(id))
+    const observer = new window.IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+          }
+        })
+      },
+      { threshold: 0.6 }
+    )
+    sections.forEach(section => section && observer.observe(section))
+    return () => observer.disconnect()
   }, [])
 
   const toggleDarkMode = () => {
@@ -36,13 +54,10 @@ export default function Header() {
     setIsMenuOpen(false)
   }
 
-  const downloadResume = () => {
-    // Create a temporary link to download resume
-    const link = document.createElement("a")
-    link.href = "/Mehdi_Raza_Resume.pdf" // You'll need to add your resume PDF to public folder
-    // link.download = "Mehdi_Raza_Resume.pdf"
-    link.click()
-  }
+  const openResume = () => {
+  // Open the resume in a new tab
+  window.open("/Mehdi_Raza_Resume.pdf", "_blank");
+};
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-md border-b border-border z-50">
@@ -54,39 +69,39 @@ export default function Header() {
           <nav className="hidden md:flex items-center space-x-8">
             <button
               onClick={() => scrollToSection("about")}
-              className="text-foreground hover:text-accent transition-colors duration-200"
+              className={`hover:text-accent transition-colors duration-200 ${activeSection === "about" ? "text-blue-500" : "text-foreground"}`}
             >
               About
-            </button>
+          </button>
             <button
               onClick={() => scrollToSection("skills")}
-              className="text-foreground hover:text-accent transition-colors duration-200"
+              className={`${activeSection === "skills" ? "text-blue-500" : "text-foreground"} hover:text-accent transition-colors duration-200 `}
             >
               Skills
             </button>
             <button
               onClick={() => scrollToSection("projects")}
-              className="text-foreground hover:text-accent transition-colors duration-200"
+              className={`${activeSection === "projects" ? "text-blue-500" : "text-foreground"} hover:text-accent transition-colors duration-200 `}
             >
               Projects
             </button>
             <button
               onClick={() => scrollToSection("achievements")}
-              className="text-foreground hover:text-accent transition-colors duration-200"
+              className={`${activeSection === "achievements" ? "text-blue-500" : "text-foreground"} hover:text-accent transition-colors duration-200 `}
             >
               Achievements
             </button>
             <button
               onClick={() => scrollToSection("contact")}
-              className="text-foreground hover:text-accent transition-colors duration-200"
+              className={`${activeSection === "contact" ? "text-blue-500" : "text-foreground"} hover:text-accent transition-colors duration-200 `}
             >
               Contact
             </button>
             <button
-              onClick={downloadResume}
+              onClick={openResume}
               className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors duration-200"
             >
-              <Download size={16} />
+              <ExternalLink size={16} />
               View Resume
             </button>
             <button
@@ -148,10 +163,10 @@ export default function Header() {
                 Contact
               </button>
               <button
-                onClick={downloadResume}
+                onClick={openResume}
                 className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors duration-200 w-fit"
               >
-                <Download size={16} />
+                <ExternalLink size={16} />
                 View Resume
               </button>
             </div>

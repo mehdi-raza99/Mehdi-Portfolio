@@ -38,14 +38,14 @@ export default function Hero() {
     >
       <div className="max-w-6xl mx-auto text-center">
         <div className="scroll-animate opacity-0 translate-y-8 transition-all duration-1000 ease-out">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-primary mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-primary mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text">
             Mehdi Raza
           </h1>
         </div>
 
         <div className="scroll-animate opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-200">
           <p className="text-2xl sm:text-3xl text-muted-foreground mb-8 font-light">
-            Software Engineer & React Developer
+            Software Engineer - MERN Stack Developer
           </p>
         </div>
 
