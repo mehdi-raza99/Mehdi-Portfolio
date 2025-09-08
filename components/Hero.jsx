@@ -33,6 +33,7 @@ export default function Hero() {
 
   return (
     <section
+      id="hero"
       ref={heroRef}
       className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 relative"
     >

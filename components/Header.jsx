@@ -9,17 +9,18 @@ export default function Header() {
   const [activeSection, setActiveSection] = useState("")
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme")
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setIsDarkMode(true)
-      document.documentElement.classList.add("dark")
-    }
+    const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    setIsDarkMode(true);
+    document.documentElement.classList.add("dark");
+  } else {
+    setIsDarkMode(false);
+    document.documentElement.classList.remove("dark");
+  }
   }, [])
 
   useEffect(() => {
-    const sectionIds = ["about", "skills", "projects", "achievements", "contact"]
+    const sectionIds = ["hero","about", "skills", "projects", "achievements", "contact"]
     const sections = sectionIds.map(id => document.getElementById(id))
     const observer = new window.IntersectionObserver(
       entries => {

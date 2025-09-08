@@ -4,15 +4,29 @@ import { useState, useEffect, useRef } from "react"
 import { Card, CardContent } from "./ui/card"
 import { Button } from "./ui/button"
 import { Mail, Phone, MapPin, Send, Github, Linkedin } from "lucide-react"
+import toast, { Toaster } from 'react-hot-toast';
+
 
 export default function Contact() {
   const contactRef = useRef(null)
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  })
 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+  const response = await fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (response.ok) {
+    toast.success('Message sent!');
+    e.target.reset();
+  } else {
+    toast.error('Failed to send message.');
+  }
+};
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -30,14 +44,6 @@ export default function Contact() {
 
     return () => observer.disconnect()
   }, [])
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
-
   return (
     <section
       id="contact"
@@ -129,7 +135,8 @@ export default function Contact() {
             <Card className="hover:shadow-2xl transition-all duration-300">
               <CardContent className="p-4 sm:p-6 lg:p-8">
                 <h3 className="text-lg sm:text-xl font-semibold text-primary mb-4 sm:mb-6">Send me a message</h3>
-                <form action="https://api.web3forms.com/submit" method="POST" className="space-y-4 sm:space-y-6">
+                <Toaster position="bottom-right" />
+                <form action="https://api.web3forms.com/submit" method="POST" className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
                   <input
                     type="hidden"
                     name="access_key"
@@ -143,8 +150,6 @@ export default function Contact() {
                       type="text"
                       id="name"
                       name="name"
-                      value={formData.name}
-                      onChange={handleChange}
                       required
                       className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent bg-background text-foreground transition-all duration-200"
                       placeholder="Your full name"
@@ -159,8 +164,6 @@ export default function Contact() {
                       type="email"
                       id="email"
                       name="email"
-                      value={formData.email}
-                      onChange={handleChange}
                       required
                       className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent bg-background text-foreground transition-all duration-200"
                       placeholder="your.email@example.com"
@@ -174,8 +177,6 @@ export default function Contact() {
                     <textarea
                       id="message"
                       name="message"
-                      value={formData.message}
-                      onChange={handleChange}
                       required
                       rows={4}
                       className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent bg-background text-foreground resize-none transition-all duration-200"

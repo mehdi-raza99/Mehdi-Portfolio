@@ -30,7 +30,7 @@ export default function Projects() {
       title: "E-commerce Platform",
       description:
         "Built a comprehensive e-commerce solution with reusable, responsive UI components using React and Tailwind CSS. Implemented Redux for global state management with complete cart operations including add, remove, increment, and decrement functionality. Features include product catalog, shopping cart, and responsive design across all devices.",
-      technologies: ["React", "Redux", "Tailwind CSS", "API Integration", "JavaScript", "Responsive Design"],
+      technologies: ["React", "React-Router-Dom",  "Redux", "Redux-Persist", "Tailwind CSS", "API Integration","Responsive Design"],
       type: "Personal Project",
       links: {
         github: "https://github.com/mehdi-raza99/E-commerce-Platform",
@@ -41,7 +41,7 @@ export default function Projects() {
       title: "Weather App",
       description:
         "Developed a fully responsive weather application using React with real-time data fetching from the OpenWeatherMap API. Features include display of real-time weather, location-based weather, search functionality, humidity level and wind speed. Implemented error handling and loading states for optimal user experience.",
-      technologies: ["React", "OpenWeatherMap API", "CSS3", "JavaScript", "API Integration"],
+      technologies: ["React", "Material UI", "OpenWeatherMap API", "CSS3", "API Integration"],
       type: "Personal Project",
       links: {
         github: "https://github.com/mehdi-raza99/Weather-App",
@@ -52,7 +52,7 @@ export default function Projects() {
       title: "MovieMate",
       description:
         "Developed a movie search and discovery application using React and the Advanced Movie Search API. Features include movie search, detailed movie information, rating, release year, and responsive design. Implemented error handling and loading states for enhanced user experience.",
-      technologies: ["React", "Movie API", "JavaScript", "CSS3", "API Integration"],
+      technologies: ["React", "Movie API", "Material UI", "CSS3", "API Integration"],
       type: "Personal Project",
       links: {
         github: "https://github.com/mehdi-raza99/Movie-Mate",
@@ -63,7 +63,7 @@ export default function Projects() {
       title: "Keeper App",
       description:
         "Developed a feature-rich note-taking application inspired by Google Keep using React. Allows users to create, view and delete notes. Implemented local storage for data persistence.",
-      technologies: ["React", "Local Storage", "CSS3", "JavaScript", "Responsive Design"],
+      technologies: ["React", "Local Storage", "CSS3", "Responsive Design"],
       type: "Personal Project",
       links: {
         github: "https://github.com/mehdi-raza99/Kepper-App",
@@ -111,8 +111,8 @@ export default function Projects() {
                     </div>
                   </div>
 
-                  <div className="flex-1 flex flex-col gap-6">
-                    <p className="text-foreground/80 leading-relaxed text-sm lg:text-base line-clamp-6">
+                  <div className="flex-1 flex flex-col gap-6 justify-evenly">
+                    <p className="text-foreground/80 leading-relaxed text-sm lg:text-base line-clamp-9">
                       {project.description}
                     </p>
 
